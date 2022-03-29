@@ -11,4 +11,8 @@ class Petugas extends Model
     protected $fillable = [
         'user_id','nama_petugas','telp'
     ];
+
+    public function dataUser(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

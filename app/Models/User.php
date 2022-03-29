@@ -33,4 +33,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function dataPetugas(){
+        return $this->hasOne(Petugas::class, 'user_id', 'id');
+    }
 }

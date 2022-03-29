@@ -20,7 +20,7 @@ class CreatePengaduansTable extends Migration
             $table->char('nik',16);
             $table->longText('isi_laporan');
             $table->string('foto');
-            $table->enum('status',['0','proses','selesai']);
+            $table->enum('status',['verifikasi','terverifikasi','tidak terverifikasi','proses','selesai']);
             $table->integer('like')->nullable();
             $table->integer('dislike')->nullable();
             $table->timestamps();

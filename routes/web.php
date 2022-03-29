@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +30,13 @@ Route::get('/pengaduan-masyarakat', [PengaduanController::class, 'pengaduanMasya
 Route::get('/form-pengaduan', [PengaduanController::class, 'formPengaduan']);
 Route::post('/input-pengaduan', [PengaduanController::class, 'inputPengaduan']);
 
-Route::post('/pengaduan/proses/{id}', [PengaduanController::class, 'prosesPengaduan']);
+Route::post('/pengaduan/terverifikasi/{id}', [PengaduanController::class, 'terverifikasi']);
+Route::post('/pengaduan/tidakTerverifikasi/{id}', [PengaduanController::class, 'tidakTerverifikasi']);
 Route::post('/pengaduan/selesai/{id}', [PengaduanController::class, 'selesaiPengaduan']);
+Route::post('/pengaduan/proses/{id}', [PengaduanController::class, 'prosesPengaduan']);
+
+Route::get('/cetak/{id}', [PengaduanController::class, 'cetak']);
 
 Route::resource('pengaduan', PengaduanController::class);
 Route::resource('categories', CategoriesController::class);
-Route::resource('petugas', PetugasController::class);
+Route::resource('user', UserController::class);

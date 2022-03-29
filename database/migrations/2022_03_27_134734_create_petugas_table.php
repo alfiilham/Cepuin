@@ -18,6 +18,7 @@ class CreatePetugasTable extends Migration
             $table->bigInteger('user_id')->unique();
             $table->string('nama_petugas',35);
             $table->string('telp',13);
+            $table->enum('roleUnit',['verifikator','superAdmin','pelaksana']);
             $table->timestamps();
         });
     }

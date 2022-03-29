@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Petugas;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Pengaduan;
+use App\Models\Categories;
 use App\Models\User;
-use App\Http\Requests\StorePetugasRequest;
-use App\Http\Requests\UpdatePetugasRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\StorePengaduanRequest;
+use App\Http\Requests\UpdatePengaduanRequest;
+use Carbon\Carbon;
+use File;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Petugas;
 
-class PetugasController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +23,10 @@ class PetugasController extends Controller
      */
     public function index()
     {
-        $data = Petugas::latest()->paginate(10);
+        $data = User::latest()->paginate(10);
         $per_page = 10;
         $search_name = "";
-        return view('admin.petugas.petugas',compact('data','per_page','search_name'));
+        return view('admin.user.user',compact('data','per_page','search_name'));
     }
 
     /**
@@ -30,21 +36,22 @@ class PetugasController extends Controller
      */
     public function create()
     {
-        return view('admin.petugas._create');
+        return view('admin.user._create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePetugasRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePetugasRequest $request)
+    public function store(Request $request)
     {
         $ValidatedData = $request->validate([
             'nama_petugas' => 'required',
             'telp' => 'required',
             'role' =>  'required',
+            'roleUnit' =>  'required',
         ]);
 
         User::create([
@@ -59,18 +66,19 @@ class PetugasController extends Controller
             'user_id' => $id->id,
             'nama_petugas' => $request->nama_petugas,
             'telp' => $request->telp,
+            'roleUnit' => $request->roleUnit,
         ]);
 
-        return redirect('petugas')->with('message','succses');
+        return redirect('user')->with('message','succses');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Petugas  $petugas
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Petugas $petugas)
+    public function show($id)
     {
         //
     }
@@ -78,10 +86,10 @@ class PetugasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Petugas  $petugas
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Petugas $petugas)
+    public function edit($id)
     {
         //
     }
@@ -89,11 +97,11 @@ class PetugasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePetugasRequest  $request
-     * @param  \App\Models\Petugas  $petugas
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePetugasRequest $request, Petugas $petugas)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -101,10 +109,10 @@ class PetugasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Petugas  $petugas
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Petugas $petugas)
+    public function destroy($id)
     {
         //
     }

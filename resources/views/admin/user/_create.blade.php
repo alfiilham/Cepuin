@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title','Create Petugas')
+@section('title','Create user')
 
 
 @section('content')
@@ -13,7 +13,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">  </h3>
         </div>
-        <form action="{{ url('petugas') }}" class="form-horizontal " method="post">
+        <form action="{{ url('user') }}" class="form-horizontal " method="post">
             @csrf
             @method('post')
           <div class="box-body">
@@ -33,6 +33,27 @@
                   @error('telp')
                     <p class="text-danger">{{$message}}</p>
                   @enderror
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="exampleInputEmail1" class="col-sm-3 control-label">Role</label>
+              <div class="col-sm-4">
+                <select name="role" id="" class="form-control mb-3" required>
+                    <option selected style="display: none">----Pilih role-----</option>
+                    <option value="admin">admin</option>
+                    <option value="petugas">petugas</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="exampleInputEmail1" class="col-sm-3 control-label">Role Unit</label>
+              <div class="col-sm-4">
+                <select name="roleUnit" id="" class="form-control mb-3" required>
+                    <option selected style="display: none">----Pilih role Unit-----</option>
+                    <option value="superAdmin">superAdmin</option>
+                    <option value="verifikator">verifikator</option>
+                    <option value="pelaksana">pelaksana</option>
+                </select>
               </div>
             </div>
             <div class="form-group row">

@@ -54,23 +54,38 @@
                                         <td>{{$d->like}}</td>
                                         <td>{{$d->dislike}}</td>
                                         <td class="action-width text-center">
-                                            @if($d->status == "0")
-                                            <form action="{{url('pengaduan/proses/'.$d->id)}}" method="post" class="d-inline">
+                                            @if(Auth()->user()->dataPetugas->roleUnit == "verifikator")
+                                            <form action="{{url('pengaduan/terverifikasi/'.$d->id)}}" method="post" class="d-inline">
                                                 @csrf
-                                                <button class="btn btn-primary text-white">Proses Pengaduan</button>
+                                                <button class="btn btn-primary text-white">Verifikasi</button>
+                                            </form>
+                                            <form action="{{url('pengaduan/tidakTerverifikasi/'.$d->id)}}" method="post" class="d-inline">
+                                                @csrf
+                                                <button class="btn btn-warning text-white">Tidak Terverifikasi</button>
                                             </form>
                                             @endif
-                                            @if($d->status == "proses")
-                                            <form action="{{url('pengaduan/selesai/'.$d->id)}}" method="post" class="d-inline">
-                                                @csrf
-                                                <button class="btn btn-warning text-white">Selesaikan Pengaduan</button>
-                                            </form>
+                                            @if(Auth()->user()->dataPetugas->roleUnit == "pelaksana")
+                                                @if($d->status == "terverifikasi")
+                                                <form action="{{url('pengaduan/proses/'.$d->id)}}" method="post" class="d-inline">
+                                                    @csrf
+                                                    <button class="btn btn-primary text-white">proses Pengaduan</button>
+                                                </form>
+                                                @endif
+                                                @if($d->status == "proses")
+                                                <form action="{{url('pengaduan/selesai/'.$d->id)}}" method="post" class="d-inline">
+                                                    @csrf
+                                                    <button class="btn btn-warning text-white">Selesaikan Pengaduan</button>
+                                                </form>
+                                                @endif
                                             @endif
+                                            @if(Auth()->user()->dataPetugas->roleUnit == "superAdmin")
+                                            <a class="btn btn-info text-white" href="{{url('cetak/'.$d->id)}}"><i class="fa fa-print"></i></a>
                                             <form action="" method="post" class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn btn-danger text-white" onclick="return confirm('Apakah kamu yakin untuk menghapus Item ini?');"><i class="fa fa-trash"></i></button>
                                             </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

@@ -20,8 +20,14 @@ class PengaduanController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role == "petugas"){
-            $data = Pengaduan::where('status','proses')->latest()->paginate(10);
+        if(Auth::user()->role == "petugas" && Auth::user()->dataPetugas->roleUnit == "verifikator" ){
+            $data = Pengaduan::where('status','verifikasi')->latest()->paginate(10);
+            $per_page = 10;
+            $search_name = "";
+            return view('admin.pengaduan.pengaduan',compact('data','per_page','search_name'));
+        }
+        elseif(Auth::user()->role == "petugas" && Auth::user()->dataPetugas->roleUnit == "pelaksana" ){
+            $data = Pengaduan::where('status','terverifikasi')->orWhere('status','proses')->latest()->paginate(10);
             $per_page = 10;
             $search_name = "";
             return view('admin.pengaduan.pengaduan',compact('data','per_page','search_name'));
@@ -132,13 +138,29 @@ class PengaduanController extends Controller
             'foto' => $nama_file,
             'tgl_pengaduan' => Carbon::now(),
             'categori_id' => $request->categori_id,
-            'status' => '0',
+            'status' => 'verifikasi',
             'like' => '0',
             'dislike' => '0',
             
         ]);
 
         return redirect('pengaduan-masyarakat')->with('message','succses');
+    }
+
+    public function terverifikasi($id){
+        Pengaduan::where('id',$id)->update([
+            'status' => 'terverifikasi'
+        ]);
+
+        return redirect('pengaduan');
+    }
+
+    public function tidakTerverivikasi($id){
+        Pengaduan::where('id',$id)->update([
+            'status' => 'tidak tervierifikasi'
+        ]);
+
+        return redirect('pengaduan');
     }
 
     public function prosesPengaduan($id){
@@ -155,5 +177,9 @@ class PengaduanController extends Controller
         ]);
 
         return redirect('pengaduan');
+    }
+    public function cetak($id){
+        $data = Pengaduan::where('id',$id)->first();
+        return view('cetak',compact('data'));
     }
 }

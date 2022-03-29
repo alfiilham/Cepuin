@@ -23,8 +23,8 @@
             <li class="{{ request()->is('categories') ? 'active' : '' }}">
                 <a href="{{url('categories')}}"><i class="fa fa-server"></i> <span class="nav-label">Categori</span></a>
             </li>
-            <li class="{{ request()->is('petugas') ? 'active' : '' }}">
-                <a href="{{url('petugas')}}"><i class="fa fa-user"></i> <span class="nav-label">Petugas</span></a>
+            <li class="{{ request()->is('user') ? 'active' : '' }}">
+                <a href="{{url('user')}}"><i class="fa fa-user"></i> <span class="nav-label">User</span></a>
             </li>
             @endif
         </ul>

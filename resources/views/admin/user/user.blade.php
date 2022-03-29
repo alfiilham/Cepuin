@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title','Petugas')
+@section('title','user')
 
 @section('content')
 @if(session()->has('message'))
@@ -10,7 +10,7 @@
             <div class="ibox ">
             <div class="ibox-title p-3">
                     <div class="d-inline">
-                        <a href="{{url('petugas/create')}}" class="btn btn-primary text-white"><i class="fa fa-plus"></i> Tambah Petugas</a>
+                        <a href="{{url('user/create')}}" class="btn btn-primary text-white"><i class="fa fa-plus"></i> Tambah Petugas</a>
                     </div>
                     <form method="GET" action="{{ url('/admin/inputan/item') }}" class="form-inline justify-content-between">
                         <div class="form-group mt-3">
@@ -37,6 +37,8 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>telp</th>
+                                <th>Role</th>
+                                <th>Role Unit</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                             </thead>
@@ -44,8 +46,10 @@
                                 @foreach($data as $d)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$d->nama_petugas}}</td>
-                                        <td>{{$d->telp}}</td>
+                                        <td>{{$d->dataPetugas->nama_petugas}}</td>
+                                        <td>{{$d->dataPetugas->telp}}</td>
+                                        <td>{{$d->role}}</td>
+                                        <td>{{$d->dataPetugas->roleUnit}}</td>
                                         <td class="action-width text-center">
                                             <a href=""><span class="btn btn-warning text-white"><i class="fa fa-pencil"></i></span></a>
                                             <form action="" method="post" class="d-inline">
