@@ -80,7 +80,7 @@
                                             @endif
                                             @if(Auth()->user()->dataPetugas->roleUnit == "superAdmin")
                                             <a class="btn btn-info text-white" href="{{url('cetak/'.$d->id)}}"><i class="fa fa-print"></i></a>
-                                            <form action="" method="post" class="d-inline">
+                                            <form action="{{url('pengaduan/'.$d->id)}}" method="post" class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn btn-danger text-white" onclick="return confirm('Apakah kamu yakin untuk menghapus Item ini?');"><i class="fa fa-trash"></i></button>

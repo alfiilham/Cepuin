@@ -101,7 +101,8 @@ class PengaduanController extends Controller
      */
     public function destroy(Pengaduan $pengaduan)
     {
-        //
+        Pengaduan::destroy($pengaduan->id );
+        return redirect('pengaduan');
     }
 
     public function pengaduanMasyarakat(){

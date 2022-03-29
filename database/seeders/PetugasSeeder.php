@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Petugas;
 
 class PetugasSeeder extends Seeder
 {
@@ -13,6 +14,11 @@ class PetugasSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Petugas::insert([
+            'user_id' => 1,
+            'nama_petugas' => "alfi ilham",
+            'telp' => "085156916406",
+            'roleUnit' => "superAdmin",
+        ]);
     }
 }
